@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vpromq01
+  name: javaspringmq01
   labels:
-    app: vpromq01
+    app: javaspringmq01
 spec:
   selector:
     matchLabels:
-      app: vpromq01
+      app: javaspringmq01
   replicas: 1
   template:
     metadata:
       labels:
-        app: vpromq01
+        app: javaspringmq01
     spec:
       containers:
-      - name: vpromq01
-        image: rabbitmq
+      - name: javaspringmq01
+        image: rabbitmq       # use default official image from dockerhub, no need for custom
         ports:
-        - name: vpromq01-port
+        - name: javaspringmq01-port
           containerPort: 15672
         env: 
          - name: RABBITMQ_DEFAULT_PASS
-           valueFrom:
+           valueFrom:     # already defined in k8s secrets, take from there now.
              secretKeyRef:
                name: app-secret
                key: rmq-pass
